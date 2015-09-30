@@ -56,6 +56,8 @@ public class ContactsFragment extends Fragment implements AdapterView.OnItemClic
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Cursor cursor = ((SimpleCursorAdapter)parent.getAdapter()).getCursor();
+        cursor.moveToPosition(position);
         
     }
 
