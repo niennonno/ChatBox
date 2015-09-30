@@ -1,6 +1,9 @@
 package com.niennonno.chatbox;
 
 import android.app.Activity;
+import android.app.LoaderManager;
+import android.content.CursorLoader;
+import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -18,9 +21,11 @@ import android.widget.SimpleCursorAdapter;
  * {@link com.niennonno.chatbox.ContactsFragment.Listener} interface
  * to handle interaction events.
  */
-public class ContactsFragment extends Fragment implements AdapterView.OnItemClickListener{
+public class ContactsFragment extends Fragment implements
+        AdapterView.OnItemClickListener, LoaderManager.LoaderCallbacks<Cursor> {
 
     private Listener mListener;
+    private SimpleCursorAdapter mCursorAdapter;
 
     public ContactsFragment() {
         // Required empty public constructor
@@ -39,18 +44,16 @@ public class ContactsFragment extends Fragment implements AdapterView.OnItemClic
 
         int[] ids = {R.id.number, R.id.name};
 
-        Cursor cursor = getActivity().getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                new String[]{ContactsContract.CommonDataKinds.Phone._ID, ContactsContract.CommonDataKinds.Phone.NUMBER,
-                        ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME}, null, null, null);
-
-        listView.setAdapter(new SimpleCursorAdapter(
+        mCursorAdapter=new SimpleCursorAdapter(
                 getActivity(),
                 R.layout.contact_list_item,
-                cursor,
+                null,
                 columns,
                 ids,
-                0));
+                0);
 
+        listView.setAdapter(mCursorAdapter);
+        getLoaderManager().initLoader(0,null,this);
         return v;
     }
 
@@ -58,7 +61,30 @@ public class ContactsFragment extends Fragment implements AdapterView.OnItemClic
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Cursor cursor = ((SimpleCursorAdapter)parent.getAdapter()).getCursor();
         cursor.moveToPosition(position);
-        
+
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return new CursorLoader(
+                getActivity(),
+                ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                new String[]{ContactsContract.CommonDataKinds.Phone._ID, ContactsContract.CommonDataKinds.Phone.NUMBER,
+                        ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME},
+                null,
+                null,
+                null
+        );
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        mCursorAdapter.swapCursor(data);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        mCursorAdapter.swapCursor(null);
     }
 
     @Override

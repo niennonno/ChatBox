@@ -2,7 +2,12 @@
     <string name="app_name">ChatBox</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-
-<!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_sign_in">SignInActivity</string>
+    <string name="name_hint">Enter Your Name</string>
+    <string name="password_hint">Enter Password</string>
+    <string name="number_hint">Enter Number</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="log_in">Log In</string>
+
 </resources>
