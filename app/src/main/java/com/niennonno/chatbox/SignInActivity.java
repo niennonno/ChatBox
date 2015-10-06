@@ -84,7 +84,7 @@ public class SignInActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        Log.d("CDA", "onBackPressed Called");
     }
 
     @Override
