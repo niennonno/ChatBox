@@ -5,6 +5,12 @@ package com.niennonno.chatbox;
  */
 public class Message {
     private String mText;
+    private String mSender;
+
+    Message(String text, String sender) {
+        mText = text;
+        mSender = sender;
+    }
 
     public String getmText() {
         return mText;
@@ -12,5 +18,13 @@ public class Message {
 
     public void setmText(String mText) {
         this.mText = mText;
+    }
+
+    public String getmSender() {
+        return mSender;
+    }
+
+    public void setmSender(String mSender) {
+        this.mSender = mSender;
     }
 }

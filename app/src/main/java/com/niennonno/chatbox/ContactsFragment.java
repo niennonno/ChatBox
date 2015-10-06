@@ -1,29 +1,17 @@
 package com.niennonno.chatbox;
 
 import android.app.Activity;
-import android.app.LoaderManager;
-import android.content.CursorLoader;
-import android.content.Loader;
-import android.database.Cursor;
-import android.os.Bundle;
 import android.app.Fragment;
-import android.provider.ContactsContract;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
-import com.parse.FindCallback;
-import com.parse.ParseException;
-import com.parse.ParseQuery;
-import com.parse.ParseUser;
-
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -61,6 +49,7 @@ public class ContactsFragment extends Fragment implements
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        mListener.onContactSelected(mContacts.get(position));
     }
 
     @Override
@@ -74,7 +63,7 @@ public class ContactsFragment extends Fragment implements
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-//            mListener = (OnFragmentInteractionListener) activity;
+            mListener = (Listener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -88,6 +77,7 @@ public class ContactsFragment extends Fragment implements
     }
 
     public interface Listener {
+        public void onContactSelected(Contact contact);
 
     }
 

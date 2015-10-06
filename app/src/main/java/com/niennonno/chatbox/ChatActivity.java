@@ -8,6 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.parse.ParseUser;
+
 import java.util.ArrayList;
 
 public class ChatActivity extends AppCompatActivity {
@@ -18,8 +20,11 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
+        ArrayList<Message> messages = new ArrayList<>();
+        messages.add(new Message("Hello","1234567890"));
+
         ListView listView = (ListView)findViewById(R.id.messages_list);
-        listView.setAdapter(new MessagesAdapter(new ArrayList<Message>()));
+        listView.setAdapter(new MessagesAdapter(messages));
     }
 
     private class MessagesAdapter extends ArrayAdapter<com.niennonno.chatbox.Message> {
@@ -31,6 +36,11 @@ public class ChatActivity extends AppCompatActivity {
         public View getView(int position, View convertView, ViewGroup parent) {
             convertView = super.getView(position, convertView, parent);
             Message message = getItem(position);
+
+            if(message.getmSender().equals(ParseUser.getCurrentUser())){
+
+            }
+
             TextView nameView = (TextView) convertView.findViewById(R.id.message);
             nameView.setText(message.getmText());
             return convertView;
