@@ -8,6 +8,7 @@
     <string name="password_hint">Enter Password</string>
     <string name="number_hint">Enter Number</string>
     <string name="sign_up">Sign Up</string>
+    <string name="send">Send</string>
     <string name="log_in">Log In</string>
 
 </resources>

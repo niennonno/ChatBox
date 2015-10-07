@@ -1,13 +1,12 @@
 package com.niennonno.chatbox;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.parse.Parse;
-import com.parse.ParseUser;
 
 public class ContactsActivity extends AppCompatActivity implements ContactsFragment.Listener {
 
@@ -20,7 +19,7 @@ public class ContactsActivity extends AppCompatActivity implements ContactsFragm
 
         Parse.initialize(this, "aNuEVgZx0kg4YV383zXcQH8CXE3jqbtvLMdPzutJ", "HQULx4ff2eUdE4dcPje9wFVnZaCIXhtlCIBAMcZv");
 
-        if(ParseUser.getCurrentUser()==null) {
+        if(ContactDataSource.getCurrentUser()==null) {
             Intent i = new Intent(this, SignInActivity.class);
             startActivity(i);
         }

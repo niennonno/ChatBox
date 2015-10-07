@@ -20,12 +20,24 @@ import java.util.List;
  * Created by Aditya Vikram on 10/5/2015.
  */
 public class ContactDataSource implements LoaderManager.LoaderCallbacks<Cursor> {
+
+    private static Contact sCurrentUser;
+
     private Context mContext;
     private Listener mListener;
 
     ContactDataSource (Context context, Listener listener){
         mListener = listener;
         mContext = context;
+    }
+
+    public static Contact getCurrentUser(){
+        if (sCurrentUser==null && ParseUser.getCurrentUser()!=null){
+            sCurrentUser = new Contact();
+            sCurrentUser.setPhoneNumber(ParseUser.getCurrentUser().getUsername());
+            sCurrentUser.setName((String)ParseUser.getCurrentUser().get("name"));
+        }
+        return sCurrentUser;
     }
 
     @Override
